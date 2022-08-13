@@ -1,7 +1,8 @@
 import 'dart:convert';
 
-import 'package:friends_quiz/app/modules/question/entity/question_model.dart';
 import 'package:http/http.dart' as http;
+
+import '../entity/question_model.dart';
 
 class QuestionRepository {
   Future<List<dynamic>> getQuestions(int difficulty) async {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:friends_quiz/app/modules/challange_choice/presenter/controller/question_controller.dart';
 
-import '../../../../question/presenter/page/question.dart';
+import '../../../questions/presenter/controller/question_controller.dart';
+import '../../../questions/presenter/page/question_hold_page.dart';
 
 class ChoiceButton extends StatelessWidget {
   final String label;
@@ -18,7 +18,8 @@ class ChoiceButton extends StatelessWidget {
       onPressed: () {
         QuestionController().getQuestions(difficultyLabel);
         Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => QuestionPage(difficulty: difficultyLabel)));
+            builder: (context) =>
+                QuestionHoldPage(difficulty: difficultyLabel)));
       },
       child: Text(
         label,
