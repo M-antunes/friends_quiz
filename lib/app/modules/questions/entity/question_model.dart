@@ -6,14 +6,12 @@ class QuestionModel {
   final String wrong1;
   final String wrong2;
   final String wrong3;
-  final String wrong4;
   QuestionModel({
     required this.title,
     required this.correct,
     required this.wrong1,
     required this.wrong2,
     required this.wrong3,
-    required this.wrong4,
   });
 
   QuestionModel copyWith({
@@ -30,7 +28,6 @@ class QuestionModel {
       wrong1: wrong1 ?? this.wrong1,
       wrong2: wrong2 ?? this.wrong2,
       wrong3: wrong3 ?? this.wrong3,
-      wrong4: wrong4 ?? this.wrong4,
     );
   }
 
@@ -41,7 +38,6 @@ class QuestionModel {
       'wrong1': wrong1,
       'wrong2': wrong2,
       'wrong3': wrong3,
-      'wrong4': wrong4,
     };
   }
 
@@ -52,7 +48,6 @@ class QuestionModel {
       wrong1: map['wrong1'] ?? '',
       wrong2: map['wrong2'] ?? '',
       wrong3: map['wrong3'] ?? '',
-      wrong4: map['wrong4'] ?? '',
     );
   }
 
@@ -63,7 +58,7 @@ class QuestionModel {
 
   @override
   String toString() {
-    return 'QuestionModel(title: $title, correct: $correct, wrong1: $wrong1, wrong2: $wrong2, wrong3: $wrong3, wrong4: $wrong4)';
+    return 'QuestionModel(title: $title, correct: $correct, wrong1: $wrong1, wrong2: $wrong2, wrong3: $wrong3,)';
   }
 
   @override
@@ -75,8 +70,7 @@ class QuestionModel {
         other.correct == correct &&
         other.wrong1 == wrong1 &&
         other.wrong2 == wrong2 &&
-        other.wrong3 == wrong3 &&
-        other.wrong4 == wrong4;
+        other.wrong3 == wrong3;
   }
 
   @override
@@ -85,7 +79,6 @@ class QuestionModel {
         correct.hashCode ^
         wrong1.hashCode ^
         wrong2.hashCode ^
-        wrong3.hashCode ^
-        wrong4.hashCode;
+        wrong3.hashCode;
   }
 }

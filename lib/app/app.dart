@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:friends_quiz/app/modules/timer/controller/timer_controller.dart';
 import 'package:provider/provider.dart';
 
 import 'modules/challange_choice/presenter/pages/challange_choice_page.dart';
@@ -18,6 +19,7 @@ class _MyAppState extends State<MyApp> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => QuestionController()),
+        ChangeNotifierProvider(create: (_) => TimerController()),
       ],
       child: const MaterialApp(
         title: 'Flutter Demo',

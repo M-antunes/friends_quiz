@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import '../../entity/answer_model.dart';
 import '../../entity/question_model.dart';
@@ -9,6 +12,8 @@ class QuestionController extends ChangeNotifier {
 
   List<QuizModel> questions = [];
 
+  List<Map<String, String>> questionsWithWrongAnsewers = [];
+
   bool selecetedAnswer = false;
 
   int questionStage = 0;
@@ -16,6 +21,8 @@ class QuestionController extends ChangeNotifier {
   bool allQuestionsAnswerd = false;
 
   int questionsRight = 0;
+
+  Random random = Random();
 
   Future<void> getQuestions(int difficulty) async {
     questions.clear();
@@ -34,6 +41,7 @@ class QuestionController extends ChangeNotifier {
         var quiz = QuizModel(
           question: model.title,
           answers: answer,
+          correctAnswer: model.correct,
           answered: false,
         );
         questions.add(quiz);
@@ -55,12 +63,28 @@ class QuestionController extends ChangeNotifier {
     notifyListeners();
   }
 
-  backStage() {
-    questionStage--;
-    if (questionStage < 0) {
-      questionStage = 0;
+  selectAnswerRandomly(List<AnswerModel> list) {
+    var randomAnswer = random.nextInt(list.length);
+    List wrongList = list.where((element) => element.correct == false).toList();
+    for (var i in wrongList) {
+      i.selected = false;
+      wrongList[randomAnswer].selected = true;
+      notifyListeners();
     }
-    notifyListeners();
+  }
+
+  selectAnswerLoop(List<AnswerModel> list, QuizModel question) {
+    Timer(const Duration(milliseconds: 500), () => selectAnswerRandomly(list));
+    Timer(const Duration(milliseconds: 800), () => selectAnswerRandomly(list));
+    Timer(const Duration(milliseconds: 1100), () => selectAnswerRandomly(list));
+    Timer(const Duration(milliseconds: 1400), () => selectAnswerRandomly(list));
+    Timer(const Duration(milliseconds: 1700), () => selectAnswerRandomly(list));
+    Timer(const Duration(milliseconds: 2000), () => selectAnswerRandomly(list));
+    Timer(const Duration(milliseconds: 2300), () => selectAnswerRandomly(list));
+    Timer(const Duration(milliseconds: 2600), () {
+      question.answered = true;
+      notifyListeners();
+    });
   }
 
   updateAnswers() {
@@ -73,12 +97,18 @@ class QuestionController extends ChangeNotifier {
       }
     }
     allQuestionsAnswerd = true;
+
     for (var i in answered) {
       if (i == false) {
         allQuestionsAnswerd = false;
         break;
       }
     }
+    notifyListeners();
+  }
+
+  getTheResult() {
+    allQuestionsAnswerd = true;
     notifyListeners();
   }
 
@@ -97,12 +127,28 @@ class QuestionController extends ChangeNotifier {
 
   calculatePoints() {
     questionsRight = 0;
+    var marked = '';
     for (var i in questions) {
+      bool thisOneWasRight = false;
       for (var j in i.answers) {
+        if (j.selected == true) {
+          marked = j.answer;
+        }
         if (j.selected == true && j.correct == true) {
           questionsRight++;
+          thisOneWasRight = true;
+          break;
         }
       }
+      if (thisOneWasRight == false) {
+        questionsWithWrongAnsewers.add({
+          'question': i.question,
+          'answer': i.correctAnswer,
+          'marked': marked
+        });
+      }
     }
+
+    notifyListeners();
   }
 }

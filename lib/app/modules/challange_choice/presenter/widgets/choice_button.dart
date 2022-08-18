@@ -14,16 +14,30 @@ class ChoiceButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: () {
-        QuestionController().getQuestions(difficultyLabel);
-        Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) =>
-                QuestionHoldPage(difficulty: difficultyLabel)));
-      },
-      child: Text(
-        label,
-        style: TextStyle(fontSize: 14),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+      child: InkWell(
+        onTap: () {
+          QuestionController().getQuestions(difficultyLabel);
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) =>
+                  QuestionHoldPage(difficulty: difficultyLabel)));
+        },
+        child: Container(
+          decoration: BoxDecoration(
+              color: Colors.white70, borderRadius: BorderRadius.circular(20)),
+          width: double.infinity,
+          height: 45,
+          child: Center(
+            child: Text(
+              label,
+              style: TextStyle(
+                  fontSize: 22,
+                  fontFamily: 'Fonts',
+                  fontWeight: FontWeight.w600),
+            ),
+          ),
+        ),
       ),
     );
   }
