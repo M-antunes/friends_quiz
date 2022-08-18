@@ -21,12 +21,31 @@ class QuestionHoldPage extends StatefulWidget {
   State<QuestionHoldPage> createState() => _QuestionHoldPageState();
 }
 
-class _QuestionHoldPageState extends State<QuestionHoldPage> {
+class _QuestionHoldPageState extends State<QuestionHoldPage>
+    with TickerProviderStateMixin {
   @override
   void initState() {
     var questionCtrl = context.read<QuestionController>();
     questionCtrl.getQuestions(widget.difficulty);
     super.initState();
+  }
+
+  late final AnimationController _controller = AnimationController(
+    duration: const Duration(seconds: 1),
+    vsync: this,
+  )..repeat(reverse: true);
+  late final _animation = Tween(begin: 1.0, end: 1.1).animate(_controller);
+
+  Color changeTimerColor(int timer) {
+    Color color;
+    if (timer < 13 && timer > 7) {
+      color = Colors.green;
+    } else if (timer < 8 && timer > 2) {
+      color = Colors.orange;
+    } else {
+      color = Colors.red;
+    }
+    return color;
   }
 
   @override
@@ -35,7 +54,7 @@ class _QuestionHoldPageState extends State<QuestionHoldPage> {
       child: Scaffold(
         body: Container(
           width: double.infinity,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
               image: DecorationImage(
                   image: AssetImage('assets/images/backg.png'),
                   fit: BoxFit.fill)),
@@ -43,28 +62,36 @@ class _QuestionHoldPageState extends State<QuestionHoldPage> {
             padding: const EdgeInsets.all(18.0),
             child: Column(
               children: [
-                Row(
-                  children: [
-                    Icon(
-                      Icons.timer,
-                      size: 40,
-                      color: Colors.white,
-                    ),
-                    Consumer<TimerController>(builder: (context, ctrl, child) {
-                      if (ctrl.begin) {
-                        ctrl.startTimer();
-                        ctrl.stopNewCounters();
-                      }
-                      return Text(
+                Consumer<TimerController>(builder: (context, ctrl, child) {
+                  if (ctrl.begin) {
+                    ctrl.startTimer();
+                    ctrl.stopNewCounters();
+                  }
+                  return Row(
+                    children: [
+                      AnimatedBuilder(
+                        animation: _animation,
+                        child: Icon(
+                          Icons.timer_outlined,
+                          size: 40,
+                          color: changeTimerColor(ctrl.count),
+                        ),
+                        builder: (context, child) {
+                          return Transform.scale(
+                              scale: _animation.value, child: child);
+                        },
+                      ),
+                      SizedBox(width: 4),
+                      Text(
                         '${ctrl.count}s',
                         style: TextStyle(
-                            color: Colors.white,
+                            color: changeTimerColor(ctrl.count),
                             fontSize: 25,
                             fontFamily: 'Friends'),
-                      );
-                    })
-                  ],
-                ),
+                      ),
+                    ],
+                  );
+                }),
                 Consumer<QuestionController>(
                   builder: (context, state, child) {
                     return Column(

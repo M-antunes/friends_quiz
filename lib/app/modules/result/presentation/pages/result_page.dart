@@ -4,6 +4,9 @@ import 'package:provider/provider.dart';
 
 import 'package:friends_quiz/app/modules/questions/presenter/controller/question_controller.dart';
 
+import '../../../../../shared/utils/useful_functions.dart';
+import '../widgets/list_of_answers.dart';
+
 class ResultPage extends StatefulWidget {
   const ResultPage({Key? key}) : super(key: key);
 
@@ -21,47 +24,67 @@ class _ResultPageState extends State<ResultPage> {
 
   @override
   Widget build(BuildContext context) {
+    var gif = getOneGif();
+    var pic = renewResultBackgroundImage();
     return SafeArea(
       child: Scaffold(
-        body: Consumer<QuestionController>(builder: (context, state, child) {
-          return Padding(
-            padding: const EdgeInsets.all(18.0),
-            child: Column(
-              children: [
-                FeedbackChoiceWidget(
-                    questionsRight: state.questionsRight,
-                    numberOfQuestions: state.questions.length),
-                const SizedBox(height: 50),
-                if (state.questionsRight == 10) const Text("Você não errou. "),
-                if (state.questionsRight < 10)
-                  ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          seeErrors = !seeErrors;
-                        });
-                      },
-                      child: Text(state.questionsRight == 9
-                          ? "Ver a que você errou"
-                          : "Ver as que você errou")),
-                ExpandedSection(
-                  expand: seeErrors,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: state.questionsWithWrongAnsewers.length,
-                        itemBuilder: (context, index) {
-                          var questionsAnswerdWrong =
-                              state.questionsWithWrongAnsewers[index];
-                          return CheckWrongAnswerCard(
-                              questionsAnswerdWrong: questionsAnswerdWrong);
-                        }),
+        body: Container(
+          width: double.infinity,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage('assets/images/$pic.png'), fit: BoxFit.fill),
+          ),
+          child: Consumer<QuestionController>(builder: (context, state, child) {
+            return Padding(
+              padding: const EdgeInsets.all(18.0),
+              child: Column(
+                children: [
+                  FeedbackChoiceWidget(
+                      questionsRight: state.questionsRight,
+                      numberOfQuestions: state.questions.length),
+                  const SizedBox(height: 10),
+                  Image.asset(
+                    "assets/images/answers/$gif.gif",
+                    height: 200,
                   ),
-                )
-              ],
-            ),
-          );
-        }),
+                  if (state.questionsRight == 10)
+                    const Text("Você não errou. "),
+                  if (state.questionsRight < 10)
+                    ElevatedButton(
+                        onPressed: () {
+                          setState(() {
+                            seeErrors = !seeErrors;
+                          });
+                        },
+                        child: Text(state.questionsRight == 9
+                            ? "Ver a que você errou"
+                            : "Ver as que você errou")),
+                  ExpandedSection(
+                    expand: seeErrors,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SizedBox(
+                        height: 130,
+                        width: double.infinity,
+                        child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            physics: const BouncingScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: state.questionsWithWrongAnsewers.length,
+                            itemBuilder: (context, index) {
+                              var questionsAnswerdWrong =
+                                  state.questionsWithWrongAnsewers[index];
+                              return CheckWrongAnswerCard(
+                                  questionsAnswerdWrong: questionsAnswerdWrong);
+                            }),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            );
+          }),
+        ),
       ),
     );
   }
@@ -76,8 +99,8 @@ class CheckWrongAnswerCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 6,
+    return SizedBox(
+      width: MediaQuery.of(context).size.width - 20,
       child: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Column(

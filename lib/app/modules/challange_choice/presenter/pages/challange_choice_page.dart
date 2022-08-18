@@ -1,7 +1,6 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 
+import '../../../../../shared/utils/useful_functions.dart';
 import '../widgets/choice_button.dart';
 
 class ChallangeChoicePage extends StatelessWidget {
@@ -9,35 +8,7 @@ class ChallangeChoicePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String renewBackgroundImage() {
-      Random random = Random();
-      int number = random.nextInt(2);
-      String pic = '';
-      List<String> images = ['f_1', 'f_2', 'f_3'];
-      images.shuffle();
-      pic = images[number];
-      return pic;
-    }
-
     var pic = renewBackgroundImage();
-
-    Color switchMainTextColor(String photo) {
-      Color color = Colors.black;
-      switch (photo) {
-        case 'f_1':
-          color = Colors.black;
-          break;
-        case 'f_2':
-          color = Colors.white70;
-          break;
-        case 'f_3':
-          color = Colors.black;
-          break;
-        default:
-          color = Colors.black;
-      }
-      return color;
-    }
 
     return SafeArea(
       child: Scaffold(
