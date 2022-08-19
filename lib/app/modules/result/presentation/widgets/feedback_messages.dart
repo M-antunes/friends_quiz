@@ -57,7 +57,7 @@ class FeedbackWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Row(
+      child: Column(
         children: [
           Text(label1.toUpperCase(),
               style: const TextStyle(
@@ -65,55 +65,59 @@ class FeedbackWidget extends StatelessWidget {
                   color: Colors.amberAccent,
                   fontSize: 28,
                   fontWeight: FontWeight.w700)),
-          const SizedBox(width: 4),
-          const Text(
-            "Você acertou",
-            style: TextStyle(
-              fontFamily: 'Regular',
-              fontSize: 22,
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const SizedBox(width: 4),
-          RichText(
-            text: TextSpan(
-              style: TextStyle(
-                fontFamily: 'Regular',
-                fontSize: 28,
-                color: questionsRight > 7
-                    ? Colors.green[800]
-                    : questionsRight > 6 && questionsRight < 4
-                        ? Colors.orange
-                        : Colors.red,
-                fontWeight: FontWeight.bold,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(
+                "Você acertou ",
+                style: TextStyle(
+                  fontFamily: 'Regular',
+                  fontSize: 22,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-              children: [
-                TextSpan(
-                  text: '$questionsRight',
+              const SizedBox(width: 4),
+              RichText(
+                text: TextSpan(
+                  style: TextStyle(
+                    fontFamily: 'Regular',
+                    fontSize: 28,
+                    color: questionsRight > 7
+                        ? Colors.green[800]
+                        : questionsRight < 8 && questionsRight > 4
+                            ? Colors.orange[800]
+                            : Colors.red,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  children: [
+                    TextSpan(
+                      text: '$questionsRight',
+                    ),
+                    const TextSpan(
+                      text: ' de ',
+                      // style: TextStyle(
+                      //   fontFamily: 'Regular',
+                      //   fontSize: 22,
+                      //   color: Colors.white,
+                      //   fontWeight: FontWeight.bold,
+                      // ),
+                    ),
+                    TextSpan(
+                      text: '$questions',
+                    ),
+                    //   style: const TextStyle(
+                    //       fontFamily: 'Regular',
+                    //       fontSize: 28,
+                    //       fontWeight: FontWeight.bold,
+                    //       color: Colors.white),
+                    // ),
+                  ],
                 ),
-                const TextSpan(
-                  text: ' de ',
-                  // style: TextStyle(
-                  //   fontFamily: 'Regular',
-                  //   fontSize: 22,
-                  //   color: Colors.white,
-                  //   fontWeight: FontWeight.bold,
-                  // ),
-                ),
-                TextSpan(
-                  text: '$questions',
-                ),
-                //   style: const TextStyle(
-                //       fontFamily: 'Regular',
-                //       fontSize: 28,
-                //       fontWeight: FontWeight.bold,
-                //       color: Colors.white),
-                // ),
-              ],
-            ),
+              ),
+              const SizedBox(height: 4),
+            ],
           ),
-          const SizedBox(height: 4),
         ],
       ),
     );

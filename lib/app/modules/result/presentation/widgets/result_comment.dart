@@ -15,9 +15,9 @@ class ResultCommentChoices extends StatelessWidget {
           const ResultComment(label: "Você é um verdadeiro fã da série"),
         if (questionsRight < 9 && questionsRight > 5)
           const ResultComment(label: "Você viu muitos episódios"),
-        if (questionsRight < 9 && questionsRight > 5)
+        if (questionsRight < 6 && questionsRight > 3)
           const ResultComment(label: "Você precisa assistir mais a série."),
-        if (questionsRight < 9 && questionsRight > 5)
+        if (questionsRight < 4)
           const ResultComment(label: "Você já viu Friends antes, mano?"),
       ],
     );

@@ -27,11 +27,11 @@ class _ResultPageState extends State<ResultPage> {
 
   bool seeErrors = false;
   var pic = renewResultBackgroundImage();
-  var excellentGif = getExcellentGif();
-  var goodGif = getGoodGif();
-  var averageGif = getAverageGif();
-  var badGif = getBadGif();
-
+  var gif = getGif();
+  // var goodGif = getGoodGif();
+  // var averageGif = getAverageGif();
+  // var badGif = getBadGif();
+  ScrollController scrollController = ScrollController();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -47,10 +47,10 @@ class _ResultPageState extends State<ResultPage> {
             child: Stack(
               children: [
                 Container(
-                  height: MediaQuery.of(context).size.height * 0.4,
+                  height: MediaQuery.of(context).size.height * 0.65,
                   width: double.infinity,
                   decoration: BoxDecoration(
-                    color: Colors.purple[200],
+                    color: Colors.purple[100],
                     borderRadius: const BorderRadius.only(
                         bottomLeft: Radius.circular(20),
                         bottomRight: Radius.circular(20)),
@@ -66,14 +66,14 @@ class _ResultPageState extends State<ResultPage> {
                       const SizedBox(height: 5),
                       Image.asset(
                         state.questionsRight > 7
-                            ? "assets/images/answers/excellent/$excellentGif.gif"
+                            ? "assets/images/answers/excellent/$gif.gif"
                             : state.questionsRight < 8 &&
                                     state.questionsRight > 5
-                                ? "assets/images/answers/good/$goodGif.gif"
+                                ? "assets/images/answers/good/$gif.gif"
                                 : state.questionsRight < 6 &&
                                         state.questionsRight > 3
-                                    ? "assets/images/answers/average/$averageGif.gif"
-                                    : "assets/images/answers/bad/$badGif.gif",
+                                    ? "assets/images/answers/average/$gif.gif"
+                                    : "assets/images/answers/bad/$gif.gif",
                         height: 200,
                       ),
                       const SizedBox(height: 10),
@@ -96,10 +96,10 @@ class _ResultPageState extends State<ResultPage> {
                           child: SizedBox(
                             height: 130,
                             width: double.infinity,
-                            child: ListView.builder(
+                            child: PageView.builder(
+                                controller: PageController(viewportFraction: 1),
                                 scrollDirection: Axis.horizontal,
                                 physics: const BouncingScrollPhysics(),
-                                shrinkWrap: true,
                                 itemCount:
                                     state.questionsWithWrongAnsewers.length,
                                 itemBuilder: (context, index) {

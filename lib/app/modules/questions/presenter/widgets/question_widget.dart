@@ -42,12 +42,6 @@ class QuestionWidget extends StatelessWidget {
                   itemCount: 4,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
-                    // if (state.count == 0) {
-                    //   state.answerAutomaticallyWhenTimeIsUp(
-                    //       state.questions[questionIndex].answers,
-                    //       state.questions[questionIndex]);
-                    //   state.advanceStage();
-                    // }
                     final individualAnswer =
                         state.questions[questionIndex].answers[index];
 

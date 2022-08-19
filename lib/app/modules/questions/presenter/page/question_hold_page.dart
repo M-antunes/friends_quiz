@@ -80,13 +80,30 @@ class _QuestionHoldPageState extends State<QuestionHoldPage>
                         },
                       ),
                       const SizedBox(width: 4),
-                      Text(
-                        '${ctrl.count}s',
-                        style: TextStyle(
-                            color: changeTimerColor(ctrl.count),
-                            fontSize: 25,
-                            fontFamily: 'Friends'),
+                      Expanded(
+                        child: Text(
+                          '${ctrl.count}s',
+                          style: TextStyle(
+                              color: changeTimerColor(ctrl.count),
+                              fontSize: 25,
+                              fontFamily: 'Friends'),
+                        ),
                       ),
+                      Consumer<QuestionController>(
+                          builder: (context, state, child) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 30),
+                          child: Text(
+                            '${state.questionStage + 1} / 10',
+                            style: const TextStyle(
+                              fontFamily: 'Regular',
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                        );
+                      })
                     ],
                   );
                 }),

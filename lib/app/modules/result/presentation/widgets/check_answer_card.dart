@@ -9,8 +9,12 @@ class CheckWrongAnswerCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width - 20,
+    return Container(
+      decoration: BoxDecoration(
+          border: Border.all(color: Colors.purple, width: 1.5),
+          borderRadius: BorderRadius.circular(10),
+          color: Colors.purple[200]),
+      // width: MediaQuery.of(context).size.width * 0.8,
       child: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Column(
@@ -18,33 +22,47 @@ class CheckWrongAnswerCard extends StatelessWidget {
           children: [
             RichText(
                 text: TextSpan(
-                    style: const TextStyle(color: Colors.black),
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontFamily: 'Regular',
+                      fontSize: 18,
+                      color: Colors.black,
+                    ),
                     children: [
-                  const TextSpan(text: "Pergunta:  "),
                   TextSpan(
-                      text: questionsAnswerdWrong['question']!,
-                      style: const TextStyle(fontWeight: FontWeight.w500)),
+                    text: questionsAnswerdWrong['question']!,
+                  ),
                 ])),
             RichText(
                 text: TextSpan(
-                    style: const TextStyle(color: Colors.black),
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontFamily: 'Regular',
+                      fontSize: 18,
+                      color: Colors.black,
+                    ),
                     children: [
-                  const TextSpan(text: "A resposta certa era:  "),
+                  const TextSpan(text: "Resposta certa:  "),
                   TextSpan(
                       text: questionsAnswerdWrong['answer']!,
                       style: TextStyle(
-                          color: Colors.green[600],
-                          fontWeight: FontWeight.w500)),
+                          color: Colors.green[800],
+                          fontWeight: FontWeight.w700)),
                 ])),
             RichText(
                 text: TextSpan(
-                    style: const TextStyle(color: Colors.black),
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontFamily: 'Regular',
+                      fontSize: 18,
+                      color: Colors.black,
+                    ),
                     children: [
-                  const TextSpan(text: "Você marcou:  "),
+                  const TextSpan(text: "Sua resposta:  "),
                   TextSpan(
                       text: questionsAnswerdWrong['marked']!,
                       style: TextStyle(
-                          color: Colors.red[600], fontWeight: FontWeight.w500)),
+                          color: Colors.red[800], fontWeight: FontWeight.w700)),
                 ])),
           ],
         ),
