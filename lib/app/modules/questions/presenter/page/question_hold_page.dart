@@ -54,7 +54,7 @@ class _QuestionHoldPageState extends State<QuestionHoldPage>
           width: double.infinity,
           decoration: const BoxDecoration(
               image: DecorationImage(
-                  image: AssetImage('assets/images/backg.png'),
+                  image: AssetImage('assets/images/background/backg.png'),
                   fit: BoxFit.fill)),
           child: Padding(
             padding: const EdgeInsets.all(18.0),

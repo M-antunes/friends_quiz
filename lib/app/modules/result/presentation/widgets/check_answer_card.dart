@@ -10,6 +10,7 @@ class CheckWrongAnswerCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 5),
       decoration: BoxDecoration(
           border: Border.all(color: Colors.purple, width: 1.5),
           borderRadius: BorderRadius.circular(10),

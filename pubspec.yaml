@@ -36,6 +36,7 @@ dependencies:
   get: ^4.6.1
   http: ^0.13.5
   provider: ^6.0.2
+  audioplayers: ^1.0.1
 
 dev_dependencies:
   flutter_test:
@@ -64,6 +65,7 @@ flutter:
     - assets/images/answers/good/
     - assets/images/answers/average/
     - assets/images/answers/bad/
+    - assets/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

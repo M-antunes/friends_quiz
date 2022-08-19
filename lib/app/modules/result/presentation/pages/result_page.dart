@@ -46,16 +46,16 @@ class _ResultPageState extends State<ResultPage> {
             ),
             child: Stack(
               children: [
-                Container(
-                  height: MediaQuery.of(context).size.height * 0.65,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: Colors.purple[100],
-                    borderRadius: const BorderRadius.only(
-                        bottomLeft: Radius.circular(20),
-                        bottomRight: Radius.circular(20)),
-                  ),
-                ),
+                // Container(
+                //   height: MediaQuery.of(context).size.height * 0.65,
+                //   width: double.infinity,
+                //   decoration: BoxDecoration(
+                //     color: Colors.purple[100],
+                //     borderRadius: const BorderRadius.only(
+                //         bottomLeft: Radius.circular(20),
+                //         bottomRight: Radius.circular(20)),
+                //   ),
+                // ),
                 Padding(
                   padding: const EdgeInsets.all(18.0),
                   child: Column(
@@ -97,7 +97,9 @@ class _ResultPageState extends State<ResultPage> {
                             height: 130,
                             width: double.infinity,
                             child: PageView.builder(
-                                controller: PageController(viewportFraction: 1),
+                                controller:
+                                    PageController(viewportFraction: 0.9),
+                                padEnds: true,
                                 scrollDirection: Axis.horizontal,
                                 physics: const BouncingScrollPhysics(),
                                 itemCount:

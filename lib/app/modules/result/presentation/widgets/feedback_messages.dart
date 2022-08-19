@@ -73,7 +73,7 @@ class FeedbackWidget extends StatelessWidget {
                 style: TextStyle(
                   fontFamily: 'Regular',
                   fontSize: 22,
-                  color: Colors.white,
+                  color: Colors.black,
                   fontWeight: FontWeight.bold,
                 ),
               ),

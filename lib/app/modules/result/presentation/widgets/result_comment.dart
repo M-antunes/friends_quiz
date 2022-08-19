@@ -39,7 +39,7 @@ class ResultComment extends StatelessWidget {
       style: const TextStyle(
         fontFamily: 'Regular',
         fontSize: 22,
-        color: Colors.white,
+        color: Colors.black,
         fontWeight: FontWeight.bold,
       ),
     );
