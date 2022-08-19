@@ -12,16 +12,14 @@ class ChallangeChoicePage extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
-          body: Container(
-        width: double.infinity,
-        decoration: BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage(
-                  "assets/images/$pic.png",
-                ),
-                fit: BoxFit.cover)),
-        child: Padding(
-          padding: const EdgeInsets.all(18.0),
+        body: Container(
+          width: double.infinity,
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage(
+                    "assets/images/background/$pic.png",
+                  ),
+                  fit: BoxFit.cover)),
           child: Column(
             children: [
               Text(
@@ -39,7 +37,7 @@ class ChallangeChoicePage extends StatelessWidget {
             ],
           ),
         ),
-      )),
+      ),
     );
   }
 }

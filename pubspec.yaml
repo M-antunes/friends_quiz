@@ -59,7 +59,7 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/images/
+    - assets/images/background/
     - assets/images/answers/excellent/
     - assets/images/answers/good/
     - assets/images/answers/average/
@@ -80,13 +80,14 @@ flutter:
     - family: Friends
       fonts:
         - asset: assets/fonts/friends.ttf
-    #       - asset: fonts/Schyler-Italic.ttf
-    #         style: italic
+
     - family: Fonts
       fonts:
         - asset: assets/fonts/f_fonts.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
+
+    - family: Regular
+      fonts:
+        - asset: assets/fonts/regular.ttf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
