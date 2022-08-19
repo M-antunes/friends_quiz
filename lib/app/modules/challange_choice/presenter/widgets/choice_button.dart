@@ -31,9 +31,9 @@ class ChoiceButton extends StatelessWidget {
           child: Center(
             child: Text(
               label,
-              style: TextStyle(
+              style: const TextStyle(
                   fontSize: 22,
-                  fontFamily: 'Fonts',
+                  fontFamily: 'Regular',
                   fontWeight: FontWeight.w600),
             ),
           ),

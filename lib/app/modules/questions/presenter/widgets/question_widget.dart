@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:friends_quiz/app/modules/timer/controller/timer_controller.dart';
 import 'package:provider/provider.dart';
@@ -75,7 +73,8 @@ class QuestionWidget extends StatelessWidget {
                                 individualAnswer.answer,
                                 style: TextStyle(
                                     fontWeight: FontWeight.w600,
-                                    height: 1.2,
+                                    fontFamily: 'Regular',
+                                    fontSize: 17,
                                     color: individualAnswer.selected == true
                                         ? Colors.white
                                         : Colors.black),

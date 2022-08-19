@@ -193,7 +193,8 @@ class _QuestionHoldPageState extends State<QuestionHoldPage>
                                                   state.advanceStage();
                                                   ctrl.resetClock();
                                                 },
-                                                child: Text("Tempo esgotado")),
+                                                child: const Text(
+                                                    "Tempo esgotado")),
                                           if (ctrl.count > 0)
                                             ElevatedButton(
                                                 onPressed: () {
@@ -201,7 +202,7 @@ class _QuestionHoldPageState extends State<QuestionHoldPage>
                                                   state.advanceStage();
                                                   ctrl.resetClock();
                                                 },
-                                                child: Text('Próxima')),
+                                                child: const Text('Próxima')),
                                         ],
                                       );
                                     }),
