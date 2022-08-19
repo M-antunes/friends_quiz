@@ -15,7 +15,13 @@ String renewBackgroundImage() {
 String renewResultBackgroundImage() {
   Random random = Random();
   int number = random.nextInt(2);
-  List<String> images = ['result_1', 'result', 'result_2']; // 'result_4'];
+  List<String> images = [
+    'result_1',
+    'result',
+    'result_2',
+    'result_3',
+    'result_4'
+  ];
   String pic = '';
   images.shuffle();
   pic = images[number];

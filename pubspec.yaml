@@ -60,7 +60,10 @@ flutter:
 
   assets:
     - assets/images/
-    - assets/images/answers/
+    - assets/images/answers/excellent/
+    - assets/images/answers/good/
+    - assets/images/answers/average/
+    - assets/images/answers/bad/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

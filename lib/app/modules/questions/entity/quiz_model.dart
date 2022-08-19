@@ -5,10 +5,12 @@ class QuizModel {
   final List<AnswerModel> answers;
   final String correctAnswer;
   bool answered;
+  bool notAnswered;
   QuizModel({
     required this.question,
     required this.answers,
     required this.correctAnswer,
     required this.answered,
+    required this.notAnswered,
   });
 }

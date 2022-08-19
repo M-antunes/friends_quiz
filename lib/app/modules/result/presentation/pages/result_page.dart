@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:friends_quiz/app/modules/result/presentation/widgets/expanded_section.dart';
 import 'package:provider/provider.dart';
 
 import 'package:friends_quiz/app/modules/questions/presenter/controller/question_controller.dart';
+import 'package:friends_quiz/app/modules/result/presentation/widgets/expanded_section.dart';
 
 import '../../../../../shared/utils/useful_functions.dart';
 import '../widgets/list_of_answers.dart';
 
 class ResultPage extends StatefulWidget {
-  const ResultPage({Key? key}) : super(key: key);
+  const ResultPage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<ResultPage> createState() => _ResultPageState();
@@ -21,21 +23,25 @@ class _ResultPageState extends State<ResultPage> {
   }
 
   bool seeErrors = false;
+  var pic = renewResultBackgroundImage();
+  var excellentGif = getExcellentGif();
+  var goodGif = getGoodGif();
+  var averageGif = getAverageGif();
+  var badGif = getBadGif();
 
   @override
   Widget build(BuildContext context) {
-    var gif = getOneGif();
-    var pic = renewResultBackgroundImage();
     return SafeArea(
       child: Scaffold(
-        body: Container(
-          width: double.infinity,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage('assets/images/$pic.png'), fit: BoxFit.fill),
-          ),
-          child: Consumer<QuestionController>(builder: (context, state, child) {
-            return Padding(
+        body: Consumer<QuestionController>(builder: (context, state, child) {
+          return Container(
+            width: double.infinity,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage('assets/images/$pic.png'),
+                  fit: BoxFit.fill),
+            ),
+            child: Padding(
               padding: const EdgeInsets.all(18.0),
               child: Column(
                 children: [
@@ -44,7 +50,14 @@ class _ResultPageState extends State<ResultPage> {
                       numberOfQuestions: state.questions.length),
                   const SizedBox(height: 10),
                   Image.asset(
-                    "assets/images/answers/$gif.gif",
+                    state.questionsRight > 7
+                        ? "assets/images/answers/excellent/$excellentGif.gif"
+                        : state.questionsRight < 8 && state.questionsRight > 5
+                            ? "assets/images/answers/good/$goodGif.gif"
+                            : state.questionsRight < 6 &&
+                                    state.questionsRight > 3
+                                ? "assets/images/answers/average/$averageGif.gif"
+                                : "assets/images/answers/bad/$badGif.gif",
                     height: 200,
                   ),
                   if (state.questionsRight == 10)
@@ -82,9 +95,9 @@ class _ResultPageState extends State<ResultPage> {
                   )
                 ],
               ),
-            );
-          }),
-        ),
+            ),
+          );
+        }),
       ),
     );
   }

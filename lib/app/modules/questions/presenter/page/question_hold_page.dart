@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -81,7 +79,7 @@ class _QuestionHoldPageState extends State<QuestionHoldPage>
                               scale: _animation.value, child: child);
                         },
                       ),
-                      SizedBox(width: 4),
+                      const SizedBox(width: 4),
                       Text(
                         '${ctrl.count}s',
                         style: TextStyle(
@@ -171,21 +169,12 @@ class _QuestionHoldPageState extends State<QuestionHoldPage>
                                           if (ctrl.count == 0)
                                             ElevatedButton(
                                                 onPressed: () {
-                                                  state.selectAnswerLoop(
-                                                      state
-                                                          .questions[state
-                                                              .questionStage]
-                                                          .answers,
+                                                  state.makeQuestionNotAnswered(
                                                       state.questions[
                                                           state.questionStage]);
-                                                  // state
-                                                  // .updateShowContinueButton();
-                                                  Timer(Duration(seconds: 4),
-                                                      () {
-                                                    state.updateAnswers();
-                                                    state.advanceStage();
-                                                    ctrl.resetClock();
-                                                  });
+                                                  state.updateAnswers();
+                                                  state.advanceStage();
+                                                  ctrl.resetClock();
                                                 },
                                                 child: Text("Tempo esgotado")),
                                           if (ctrl.count > 0)
@@ -194,10 +183,6 @@ class _QuestionHoldPageState extends State<QuestionHoldPage>
                                                   state.updateAnswers();
                                                   state.advanceStage();
                                                   ctrl.resetClock();
-                                                  // if (ctrl.count == 0) {
-                                                  //   state
-                                                  //       .updateShowContinueButton();
-                                                  // }
                                                 },
                                                 child: Text('Próxima')),
                                         ],

@@ -39,11 +39,11 @@ class QuestionController extends ChangeNotifier {
         ];
         answer.shuffle();
         var quiz = QuizModel(
-          question: model.title,
-          answers: answer,
-          correctAnswer: model.correct,
-          answered: false,
-        );
+            question: model.title,
+            answers: answer,
+            correctAnswer: model.correct,
+            answered: false,
+            notAnswered: false);
         questions.add(quiz);
       }
       numberOfTimes--;
@@ -63,34 +63,39 @@ class QuestionController extends ChangeNotifier {
     notifyListeners();
   }
 
-  selectAnswerRandomly(List<AnswerModel> list) {
-    var randomAnswer = random.nextInt(list.length);
-    List wrongList = list.where((element) => element.correct == false).toList();
-    for (var i in wrongList) {
-      i.selected = false;
-      wrongList[randomAnswer].selected = true;
-      notifyListeners();
-    }
+  makeQuestionNotAnswered(QuizModel question) {
+    question.notAnswered = true;
+    notifyListeners();
   }
 
-  selectAnswerLoop(List<AnswerModel> list, QuizModel question) {
-    Timer(const Duration(milliseconds: 500), () => selectAnswerRandomly(list));
-    Timer(const Duration(milliseconds: 800), () => selectAnswerRandomly(list));
-    Timer(const Duration(milliseconds: 1100), () => selectAnswerRandomly(list));
-    Timer(const Duration(milliseconds: 1400), () => selectAnswerRandomly(list));
-    Timer(const Duration(milliseconds: 1700), () => selectAnswerRandomly(list));
-    Timer(const Duration(milliseconds: 2000), () => selectAnswerRandomly(list));
-    Timer(const Duration(milliseconds: 2300), () => selectAnswerRandomly(list));
-    Timer(const Duration(milliseconds: 2600), () {
-      question.answered = true;
-      notifyListeners();
-    });
-  }
+  // selectAnswerRandomly(List<AnswerModel> list) {
+  //   var randomAnswer = random.nextInt(list.length);
+  //   List wrongList = list.where((element) => element.correct == false).toList();
+  //   for (var i in wrongList) {
+  //     i.selected = false;
+  //     wrongList[randomAnswer].selected = true;
+  //     notifyListeners();
+  //   }
+  // }
+
+  // selectAnswerLoop(List<AnswerModel> list, QuizModel question) {
+  //   Timer(const Duration(milliseconds: 500), () => selectAnswerRandomly(list));
+  //   Timer(const Duration(milliseconds: 800), () => selectAnswerRandomly(list));
+  //   Timer(const Duration(milliseconds: 1100), () => selectAnswerRandomly(list));
+  //   Timer(const Duration(milliseconds: 1400), () => selectAnswerRandomly(list));
+  //   Timer(const Duration(milliseconds: 1700), () => selectAnswerRandomly(list));
+  //   Timer(const Duration(milliseconds: 2000), () => selectAnswerRandomly(list));
+  //   Timer(const Duration(milliseconds: 2300), () => selectAnswerRandomly(list));
+  //   Timer(const Duration(milliseconds: 2600), () {
+  //     question.answered = true;
+  //     notifyListeners();
+  //   });
+  // }
 
   updateAnswers() {
     List<bool> answered = [];
     for (var i in questions) {
-      if (i.answered == true) {
+      if (i.answered == true || i.notAnswered == true) {
         answered.add(true);
       } else {
         answered.add(false);
@@ -128,6 +133,7 @@ class QuestionController extends ChangeNotifier {
   calculatePoints() {
     questionsRight = 0;
     var marked = '';
+    var notMarked = 'Não respondida';
     for (var i in questions) {
       bool thisOneWasRight = false;
       for (var j in i.answers) {
@@ -140,11 +146,11 @@ class QuestionController extends ChangeNotifier {
           break;
         }
       }
-      if (thisOneWasRight == false) {
+      if (thisOneWasRight == false || i.notAnswered == true) {
         questionsWithWrongAnsewers.add({
           'question': i.question,
           'answer': i.correctAnswer,
-          'marked': marked
+          'marked': marked == '' ? notMarked : marked,
         });
       }
     }
