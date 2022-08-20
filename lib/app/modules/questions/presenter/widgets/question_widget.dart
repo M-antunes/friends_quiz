@@ -47,6 +47,8 @@ class QuestionWidget extends StatelessWidget {
                       onTap: ctrl.count == 0
                           ? null
                           : () {
+                              state.showAnswerWasChosen(
+                                  state.questions[questionIndex]);
                               state.selectQuestion(
                                 state.questions[questionIndex].answers,
                                 individualAnswer,
@@ -71,6 +73,7 @@ class QuestionWidget extends StatelessWidget {
                             child: Center(
                               child: Text(
                                 individualAnswer.answer,
+                                textAlign: TextAlign.center,
                                 style: TextStyle(
                                     fontWeight: FontWeight.w600,
                                     fontFamily: 'Regular',

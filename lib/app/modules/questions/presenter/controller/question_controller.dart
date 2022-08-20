@@ -43,6 +43,7 @@ class QuestionController extends ChangeNotifier {
             answers: answer,
             correctAnswer: model.correct,
             answered: false,
+            selected: false,
             notAnswered: false);
         questions.add(quiz);
       }
@@ -68,30 +69,6 @@ class QuestionController extends ChangeNotifier {
     notifyListeners();
   }
 
-  // selectAnswerRandomly(List<AnswerModel> list) {
-  //   var randomAnswer = random.nextInt(list.length);
-  //   List wrongList = list.where((element) => element.correct == false).toList();
-  //   for (var i in wrongList) {
-  //     i.selected = false;
-  //     wrongList[randomAnswer].selected = true;
-  //     notifyListeners();
-  //   }
-  // }
-
-  // selectAnswerLoop(List<AnswerModel> list, QuizModel question) {
-  //   Timer(const Duration(milliseconds: 500), () => selectAnswerRandomly(list));
-  //   Timer(const Duration(milliseconds: 800), () => selectAnswerRandomly(list));
-  //   Timer(const Duration(milliseconds: 1100), () => selectAnswerRandomly(list));
-  //   Timer(const Duration(milliseconds: 1400), () => selectAnswerRandomly(list));
-  //   Timer(const Duration(milliseconds: 1700), () => selectAnswerRandomly(list));
-  //   Timer(const Duration(milliseconds: 2000), () => selectAnswerRandomly(list));
-  //   Timer(const Duration(milliseconds: 2300), () => selectAnswerRandomly(list));
-  //   Timer(const Duration(milliseconds: 2600), () {
-  //     question.answered = true;
-  //     notifyListeners();
-  //   });
-  // }
-
   updateAnswers() {
     List<bool> answered = [];
     for (var i in questions) {
@@ -114,6 +91,11 @@ class QuestionController extends ChangeNotifier {
 
   getTheResult() {
     allQuestionsAnswerd = true;
+    notifyListeners();
+  }
+
+  showAnswerWasChosen(QuizModel question) {
+    question.selected = true;
     notifyListeners();
   }
 

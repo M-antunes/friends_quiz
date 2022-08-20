@@ -28,9 +28,7 @@ class _ResultPageState extends State<ResultPage> {
   bool seeErrors = false;
   var pic = renewResultBackgroundImage();
   var gif = getGif();
-  // var goodGif = getGoodGif();
-  // var averageGif = getAverageGif();
-  // var badGif = getBadGif();
+
   ScrollController scrollController = ScrollController();
   @override
   Widget build(BuildContext context) {
@@ -46,18 +44,9 @@ class _ResultPageState extends State<ResultPage> {
             ),
             child: Stack(
               children: [
-                // Container(
-                //   height: MediaQuery.of(context).size.height * 0.65,
-                //   width: double.infinity,
-                //   decoration: BoxDecoration(
-                //     color: Colors.purple[100],
-                //     borderRadius: const BorderRadius.only(
-                //         bottomLeft: Radius.circular(20),
-                //         bottomRight: Radius.circular(20)),
-                //   ),
-                // ),
                 Padding(
-                  padding: const EdgeInsets.all(18.0),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 5, vertical: 15),
                   child: Column(
                     children: [
                       FeedbackChoiceWidget(
@@ -79,18 +68,37 @@ class _ResultPageState extends State<ResultPage> {
                       const SizedBox(height: 10),
                       ResultCommentChoices(
                           questionsRight: state.questionsRight),
+                      const SizedBox(height: 10),
                       if (state.questionsRight < 10)
-                        ElevatedButton(
-                            onPressed: () {
-                              setState(() {
-                                seeErrors = !seeErrors;
-                              });
+                        Visibility(
+                          visible: !seeErrors,
+                          child: InkWell(
+                            onTap: () {
+                              setState(() => seeErrors = !seeErrors);
                             },
-                            child: Text(state.questionsRight == 9
-                                ? "Ver a que você errou"
-                                : "Ver as que você errou")),
-                      ExpandedSection(
-                        expand: seeErrors,
+                            child: Container(
+                              width: double.infinity,
+                              height: 40,
+                              decoration: BoxDecoration(
+                                  color: Colors.deepPurpleAccent,
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Center(
+                                child: Text(
+                                  state.questionsRight < 9
+                                      ? 'Ver seus erros'
+                                      : "Ver seu único erro",
+                                  style: TextStyle(
+                                    fontFamily: 'Regular',
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      Visibility(
+                        visible: seeErrors,
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: SizedBox(

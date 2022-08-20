@@ -6,11 +6,13 @@ class QuizModel {
   final String correctAnswer;
   bool answered;
   bool notAnswered;
+  bool selected;
   QuizModel({
     required this.question,
     required this.answers,
     required this.correctAnswer,
     required this.answered,
     required this.notAnswered,
+    required this.selected,
   });
 }

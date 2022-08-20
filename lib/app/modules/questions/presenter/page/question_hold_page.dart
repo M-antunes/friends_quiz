@@ -5,6 +5,7 @@ import 'package:friends_quiz/app/modules/timer/controller/timer_controller.dart'
 
 import '../../../result/presentation/pages/result_page.dart';
 import '../controller/question_controller.dart';
+import '../widgets/call_snackbar_message.dart';
 import '../widgets/finish_quiz_button.dart';
 import '../widgets/question_widget.dart';
 
@@ -115,66 +116,21 @@ class _QuestionHoldPageState extends State<QuestionHoldPage>
                             ? const Center(child: CircularProgressIndicator())
                             : Column(
                                 children: [
-                                  if (state.questionStage == 0)
-                                    QuestionWidget(
-                                      state: state,
-                                      answerIndex: 0,
-                                      questionIndex: 0,
-                                    ),
-                                  if (state.questionStage == 1)
-                                    QuestionWidget(
-                                      state: state,
-                                      answerIndex: 1,
-                                      questionIndex: 1,
-                                    ),
-                                  if (state.questionStage == 2)
-                                    QuestionWidget(
-                                      state: state,
-                                      answerIndex: 2,
-                                      questionIndex: 2,
-                                    ),
-                                  if (state.questionStage == 3)
-                                    QuestionWidget(
-                                      state: state,
-                                      answerIndex: 3,
-                                      questionIndex: 3,
-                                    ),
-                                  if (state.questionStage == 4)
-                                    QuestionWidget(
-                                      state: state,
-                                      answerIndex: 4,
-                                      questionIndex: 4,
-                                    ),
-                                  if (state.questionStage == 5)
-                                    QuestionWidget(
-                                      state: state,
-                                      answerIndex: 5,
-                                      questionIndex: 5,
-                                    ),
-                                  if (state.questionStage == 6)
-                                    QuestionWidget(
-                                      state: state,
-                                      answerIndex: 6,
-                                      questionIndex: 6,
-                                    ),
-                                  if (state.questionStage == 7)
-                                    QuestionWidget(
-                                      state: state,
-                                      answerIndex: 7,
-                                      questionIndex: 7,
-                                    ),
-                                  if (state.questionStage == 8)
-                                    QuestionWidget(
-                                      state: state,
-                                      answerIndex: 8,
-                                      questionIndex: 8,
-                                    ),
-                                  if (state.questionStage == 9)
-                                    QuestionWidget(
-                                      state: state,
-                                      answerIndex: 9,
-                                      questionIndex: 9,
-                                    ),
+                                  ListView.builder(
+                                      shrinkWrap: true,
+                                      itemCount: 10,
+                                      itemBuilder: (context, index) {
+                                        return Column(
+                                          children: [
+                                            if (state.questionStage == index)
+                                              QuestionWidget(
+                                                state: state,
+                                                answerIndex: index,
+                                                questionIndex: index,
+                                              ),
+                                          ],
+                                        );
+                                      }),
                                   if (state.questionStage >= 0 &&
                                       !state.allQuestionsAnswerd)
                                     Consumer<TimerController>(
@@ -198,9 +154,21 @@ class _QuestionHoldPageState extends State<QuestionHoldPage>
                                           if (ctrl.count > 0)
                                             ElevatedButton(
                                                 onPressed: () {
-                                                  state.updateAnswers();
-                                                  state.advanceStage();
-                                                  ctrl.resetClock();
+                                                  if (!state
+                                                      .questions[
+                                                          state.questionStage]
+                                                      .selected) {
+                                                    callMessageSnackbar(
+                                                      context,
+                                                      "Você deve escolher uma resposta antes de prosseguir",
+                                                      Colors.purple[200],
+                                                      2500,
+                                                    );
+                                                  } else {
+                                                    state.updateAnswers();
+                                                    state.advanceStage();
+                                                    ctrl.resetClock();
+                                                  }
                                                 },
                                                 child: const Text('Próxima')),
                                         ],
@@ -224,37 +192,6 @@ class _QuestionHoldPageState extends State<QuestionHoldPage>
               ],
             ),
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class ActionButton extends StatelessWidget {
-  final String label;
-  final VoidCallback onTap;
-  const ActionButton({
-    Key? key,
-    required this.label,
-    required this.onTap,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      child: Card(
-        color: Colors.purpleAccent,
-        elevation: 8,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Container(
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20), color: Colors.purple),
-          width: MediaQuery.of(context).size.width * 0.2,
-          height: 35,
-          child: Center(child: Text(label)),
         ),
       ),
     );
