@@ -11,13 +11,13 @@ class ResultCommentChoices extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        if (questionsRight > 7)
+        if (questionsRight > 12)
           const ResultComment(label: "Você é um verdadeiro fã da série"),
-        if (questionsRight < 8 && questionsRight > 5)
-          const ResultComment(label: "Você viu muitos episódios"),
-        if (questionsRight < 6 && questionsRight > 3)
+        if (questionsRight < 13 && questionsRight > 8)
+          const ResultComment(label: "Você já viu muitos episódios, né?"),
+        if (questionsRight < 9 && questionsRight > 4)
           const ResultComment(label: "Você precisa assistir mais a série."),
-        if (questionsRight < 4)
+        if (questionsRight < 5)
           const ResultComment(label: "Você já viu Friends antes, mano?"),
       ],
     );

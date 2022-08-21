@@ -14,8 +14,6 @@ class QuestionController extends ChangeNotifier {
 
   List<Map<String, String>> questionsWithWrongAnsewers = [];
 
-  bool selecetedAnswer = false;
-
   int questionStage = 0;
 
   bool allQuestionsAnswerd = false;
@@ -27,39 +25,41 @@ class QuestionController extends ChangeNotifier {
   Future<void> getQuestions(int difficulty) async {
     questions.clear();
     final response = await repository.getQuestions(difficulty);
-    int numberOfTimes = 10;
-    for (var i in response) {
-      if (numberOfTimes > 0) {
-        QuestionModel model = i;
-        List<AnswerModel> answer = [
-          AnswerModel(answer: model.correct, selected: false, correct: true),
-          AnswerModel(answer: model.wrong1, selected: false, correct: false),
-          AnswerModel(answer: model.wrong2, selected: false, correct: false),
-          AnswerModel(answer: model.wrong3, selected: false, correct: false),
-        ];
-        answer.shuffle();
-        var quiz = QuizModel(
-            question: model.title,
-            answers: answer,
-            correctAnswer: model.correct,
-            answered: false,
-            selected: false,
-            notAnswered: false);
-        questions.add(quiz);
+    // int numberOfTimes = 10;
+    List<int> usedIndexes = [];
+    response.shuffle();
+    for (var i = 0; i < 15; i++) {
+      var questionIndex = random.nextInt(response.length);
+      while (usedIndexes.contains(questionIndex)) {
+        questionIndex = random.nextInt(response.length);
       }
-      numberOfTimes--;
-      if (numberOfTimes < 1) {
-        break;
-      }
+      usedIndexes.add(questionIndex);
+      QuestionModel model = response[questionIndex];
+      List<AnswerModel> answer = [
+        AnswerModel(answer: model.correct, selected: false, correct: true),
+        AnswerModel(answer: model.wrong1, selected: false, correct: false),
+        AnswerModel(answer: model.wrong2, selected: false, correct: false),
+        AnswerModel(answer: model.wrong3, selected: false, correct: false),
+      ];
+      answer.shuffle();
+      var quiz = QuizModel(
+          question: model.title,
+          answers: answer,
+          correctAnswer: model.correct,
+          answered: false,
+          selected: false,
+          notAnswered: false);
+      questions.add(quiz);
     }
+
     questions.shuffle();
     notifyListeners();
   }
 
   advanceStage() {
     questionStage++;
-    if (questionStage > 9) {
-      questionStage = 9;
+    if (questionStage > 14) {
+      questionStage = 14;
     }
     notifyListeners();
   }
@@ -107,15 +107,15 @@ class QuestionController extends ChangeNotifier {
     answer.selected = !answer.selected;
     question.answered = true;
     notifyListeners();
-    if (questionStage == 9) {
+    if (questionStage == 14) {
       updateAnswers();
     }
   }
 
   calculatePoints() {
+    questionsWithWrongAnsewers.clear();
     questionsRight = 0;
     var marked = '';
-    var notMarked = 'Não respondida';
     for (var i in questions) {
       bool thisOneWasRight = false;
       for (var j in i.answers) {
@@ -132,11 +132,18 @@ class QuestionController extends ChangeNotifier {
         questionsWithWrongAnsewers.add({
           'question': i.question,
           'answer': i.correctAnswer,
-          'marked': marked == '' ? notMarked : marked,
+          'marked': marked == '' ? 'Não respondida' : marked,
         });
       }
     }
 
+    notifyListeners();
+  }
+
+  restartQuiz() {
+    questionStage = 0;
+    allQuestionsAnswerd = false;
+    questionsRight = 0;
     notifyListeners();
   }
 }

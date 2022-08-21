@@ -4,11 +4,12 @@ import 'package:flutter/cupertino.dart';
 
 class TimerController extends ChangeNotifier {
   Timer? timer;
-  int count = 12;
+  int count = 0;
   bool begin = true;
 
   startTimer() {
-    timer = Timer.periodic(const Duration(milliseconds: 1150), (_) {
+    count = 12;
+    timer = Timer.periodic(const Duration(milliseconds: 1250), (_) {
       if (count <= 0) {
         count = 0;
       } else {
@@ -25,6 +26,12 @@ class TimerController extends ChangeNotifier {
 
   resetClock() {
     count = 12;
+    notifyListeners();
+  }
+
+  stopTimer() {
+    timer!.cancel();
+    begin = true;
     notifyListeners();
   }
 }

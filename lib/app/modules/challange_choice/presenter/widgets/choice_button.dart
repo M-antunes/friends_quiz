@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:friends_quiz/app/modules/timer/controller/timer_controller.dart';
+import 'package:provider/provider.dart';
 
 import '../../../questions/presenter/controller/question_controller.dart';
 import '../../../questions/presenter/page/question_hold_page.dart';
@@ -14,11 +16,13 @@ class ChoiceButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var timer = context.read<TimerController>();
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
       child: InkWell(
         onTap: () {
           QuestionController().getQuestions(difficultyLabel);
+          timer.stopTimer();
           Navigator.of(context).push(MaterialPageRoute(
               builder: (context) =>
                   QuestionHoldPage(difficulty: difficultyLabel)));

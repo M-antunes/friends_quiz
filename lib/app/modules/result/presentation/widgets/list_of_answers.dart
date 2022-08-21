@@ -8,7 +8,7 @@ import 'dart:math';
 //   return excellentGifs[randomGif];
 // }
 
-List<String> gifs = ['joey', 'chandler', 'monica', 'rachel', 'phoebe'];
+List<String> gifs = ['joey', 'chandler', 'monica', 'rachel', 'phoebe', 'ross'];
 
 String getGif() {
   Random random = Random();

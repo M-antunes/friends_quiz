@@ -95,7 +95,7 @@ class _QuestionHoldPageState extends State<QuestionHoldPage>
                         return Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 30),
                           child: Text(
-                            '${state.questionStage + 1} / 10',
+                            '${state.questionStage + 1} / 15',
                             style: const TextStyle(
                               fontFamily: 'Regular',
                               fontSize: 20,
@@ -118,7 +118,7 @@ class _QuestionHoldPageState extends State<QuestionHoldPage>
                                 children: [
                                   ListView.builder(
                                       shrinkWrap: true,
-                                      itemCount: 10,
+                                      itemCount: 15,
                                       itemBuilder: (context, index) {
                                         return Column(
                                           children: [
@@ -159,11 +159,10 @@ class _QuestionHoldPageState extends State<QuestionHoldPage>
                                                           state.questionStage]
                                                       .selected) {
                                                     callMessageSnackbar(
-                                                      context,
-                                                      "Você deve escolher uma resposta antes de prosseguir",
-                                                      Colors.purple[200],
-                                                      2500,
-                                                    );
+                                                        context,
+                                                        "Você deve escolher uma resposta antes de prosseguir",
+                                                        Colors.purple[200],
+                                                        null);
                                                   } else {
                                                     state.updateAnswers();
                                                     state.advanceStage();

@@ -14,25 +14,25 @@ class FeedbackChoiceWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        if (questionsRight > 8)
+        if (questionsRight > 12)
           FeedbackWidget(
             questions: numberOfQuestions,
             questionsRight: questionsRight,
             label1: "Parabéns!",
           ),
-        if (questionsRight < 9 && questionsRight > 5)
+        if (questionsRight < 13 && questionsRight > 8)
           FeedbackWidget(
             questions: numberOfQuestions,
             questionsRight: questionsRight,
             label1: "Muito bom!",
           ),
-        if (questionsRight < 6 && questionsRight > 3)
+        if (questionsRight < 9 && questionsRight > 4)
           FeedbackWidget(
             questions: numberOfQuestions,
             questionsRight: questionsRight,
             label1: "É... veja bem...",
           ),
-        if (questionsRight < 4 && questionsRight >= 0)
+        if (questionsRight < 5 && questionsRight >= 0)
           FeedbackWidget(
             questions: numberOfQuestions,
             questionsRight: questionsRight,
@@ -83,11 +83,13 @@ class FeedbackWidget extends StatelessWidget {
                   style: TextStyle(
                     fontFamily: 'Regular',
                     fontSize: 28,
-                    color: questionsRight > 7
+                    color: questionsRight > 12
                         ? Colors.green[800]
-                        : questionsRight < 8 && questionsRight > 4
-                            ? Colors.orange[800]
-                            : Colors.red,
+                        : questionsRight < 13 && questionsRight > 8
+                            ? Colors.blue[800]
+                            : questionsRight < 9 && questionsRight > 4
+                                ? Colors.orange[800]
+                                : Colors.red,
                     fontWeight: FontWeight.bold,
                   ),
                   children: [
@@ -96,22 +98,10 @@ class FeedbackWidget extends StatelessWidget {
                     ),
                     const TextSpan(
                       text: ' de ',
-                      // style: TextStyle(
-                      //   fontFamily: 'Regular',
-                      //   fontSize: 22,
-                      //   color: Colors.white,
-                      //   fontWeight: FontWeight.bold,
-                      // ),
                     ),
                     TextSpan(
                       text: '$questions',
                     ),
-                    //   style: const TextStyle(
-                    //       fontFamily: 'Regular',
-                    //       fontSize: 28,
-                    //       fontWeight: FontWeight.bold,
-                    //       color: Colors.white),
-                    // ),
                   ],
                 ),
               ),
