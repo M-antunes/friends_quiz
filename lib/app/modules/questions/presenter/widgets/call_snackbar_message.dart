@@ -8,12 +8,12 @@ ScaffoldFeatureController<SnackBar, SnackBarClosedReason> callMessageSnackbar(
         // margin: EdgeInsets.symmetric(horizontal: 12),
         duration: Duration(milliseconds: duration ?? 1800),
         shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
+          borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
         backgroundColor: color,
         content: Text(
           text,
-          style: const TextStyle(fontFamily: 'Regular', fontSize: 14),
+          style: const TextStyle(fontFamily: 'Regular', fontSize: 16),
           textAlign: TextAlign.center,
         ),
       ),

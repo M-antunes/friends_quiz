@@ -22,7 +22,9 @@ class ChoiceButton extends StatelessWidget {
       child: InkWell(
         onTap: () {
           QuestionController().getQuestions(difficultyLabel);
-          timer.stopTimer();
+          if (!timer.begin) {
+            timer.stopTimer();
+          }
           Navigator.of(context).push(MaterialPageRoute(
               builder: (context) =>
                   QuestionHoldPage(difficulty: difficultyLabel)));

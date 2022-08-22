@@ -21,7 +21,7 @@ class QuestionWidget extends StatelessWidget {
       padding: const EdgeInsets.all(18.0),
       child: SizedBox(
         width: MediaQuery.of(context).size.width * 0.9,
-        height: MediaQuery.of(context).size.height * 0.6,
+        height: MediaQuery.of(context).size.height * 0.65,
         child: Column(
           children: [
             Text(
@@ -34,6 +34,9 @@ class QuestionWidget extends StatelessWidget {
                   height: 1.2,
                   color: Colors.white),
             ),
+            const SizedBox(height: 25),
+            if (state.questions[questionIndex].photo != '')
+              Image.network(state.questions[questionIndex].photo!, height: 150),
             const SizedBox(height: 25),
             Consumer<TimerController>(builder: (context, ctrl, child) {
               return ListView.builder(
@@ -68,20 +71,30 @@ class QuestionWidget extends StatelessWidget {
                               ? Colors.deepPurpleAccent
                               : Colors.grey.shade300,
                           elevation: individualAnswer.selected == true ? 0 : 8,
-                          child: Padding(
-                            padding: const EdgeInsets.all(18.0),
-                            child: Center(
+                          child: ListTile(
+                            contentPadding: const EdgeInsets.only(left: 5),
+                            leading: CircleAvatar(
+                              radius: 22,
+                              backgroundColor: Colors.purple[200],
                               child: Text(
-                                individualAnswer.answer,
-                                textAlign: TextAlign.center,
+                                getOptionLetter(index),
                                 style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    fontFamily: 'Regular',
-                                    fontSize: 17,
-                                    color: individualAnswer.selected == true
-                                        ? Colors.white
-                                        : Colors.black),
+                                    fontFamily: 'F_fonts',
+                                    fontSize: 22,
+                                    color: Colors.grey[900],
+                                    fontWeight: FontWeight.w600),
                               ),
+                            ),
+                            title: Text(
+                              individualAnswer.answer,
+                              strutStyle: const StrutStyle(height: 1.4),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontFamily: 'Regular',
+                                  fontSize: 17,
+                                  color: individualAnswer.selected == true
+                                      ? Colors.white
+                                      : Colors.black),
                             ),
                           ),
                         ),
@@ -94,4 +107,14 @@ class QuestionWidget extends StatelessWidget {
       ),
     );
   }
+}
+
+String getOptionLetter(int index) {
+  return index == 0
+      ? 'A'
+      : index == 1
+          ? 'B'
+          : index == 3
+              ? 'C'
+              : 'D';
 }

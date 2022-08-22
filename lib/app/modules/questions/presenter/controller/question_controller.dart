@@ -46,6 +46,7 @@ class QuestionController extends ChangeNotifier {
           question: model.title,
           answers: answer,
           correctAnswer: model.correct,
+          photo: model.photo,
           answered: false,
           selected: false,
           notAnswered: false);
