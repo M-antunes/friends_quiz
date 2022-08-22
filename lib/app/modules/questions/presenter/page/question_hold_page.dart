@@ -142,9 +142,14 @@ class _QuestionHoldPageState extends State<QuestionHoldPage>
                                           if (ctrl.count == 0)
                                             ElevatedButton(
                                                 onPressed: () {
-                                                  state.makeQuestionNotAnswered(
-                                                      state.questions[
-                                                          state.questionStage]);
+                                                  if (!state
+                                                      .questions[
+                                                          state.questionStage]
+                                                      .answered) {
+                                                    state.makeQuestionNotAnswered(
+                                                        state.questions[state
+                                                            .questionStage]);
+                                                  }
                                                   state.updateAnswers();
                                                   state.advanceStage();
                                                   ctrl.resetClock();
